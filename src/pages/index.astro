@@ -2,14 +2,17 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
-// Optional: show latest posts if you're using Astro Content Collections
-// Remove this block if you don't want "Latest writing" on the homepage.
-import { getCollection } from 'astro:content';
-const posts = (await getCollection('blog'))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+// Safely attempt to load latest posts if a 'blog' content collection exists
+let posts = [];
+try {
+  const { getCollection } = await import('astro:content');
+  posts = (await getCollection('blog'))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    .slice(0, 3);
+} catch (e) {
+  posts = [];
+}
 ---
 
 <!doctype html>
@@ -31,7 +34,13 @@ const posts = (await getCollection('blog'))
         --accent: #58a6ff;
         --accent-2: #7aa2f7;
         --ok: #3fb950;
+
+        /* New: high-contrast orange + outline */
+        --orange: #ffa657; /* accessible orange */
+        --outline: 0 1px 0 #000, 0 -1px 0 #000, 1px 0 0 #000, -1px 0 0 #000,
+                    1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
       }
+
       /* Dark page baseline (scoped to this page) */
       body {
         color-scheme: dark;
@@ -43,6 +52,7 @@ const posts = (await getCollection('blog'))
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
+
       a {
         color: var(--accent);
         text-decoration: none;
@@ -50,11 +60,13 @@ const posts = (await getCollection('blog'))
       a:hover {
         text-decoration: underline;
       }
+
       main {
         max-width: 72rem;
         margin: 0 auto;
         padding: 2rem 1rem 4rem;
       }
+
       .hero {
         display: grid;
         gap: 1rem;
@@ -64,12 +76,26 @@ const posts = (await getCollection('blog'))
         margin: 0;
         font-size: clamp(2.5rem, 6vw, 4rem);
         letter-spacing: 0.2px;
+
+        /* Make the hero name orange with a black border */
+        color: var(--orange);
+        text-shadow: var(--outline);
+        -webkit-text-stroke: 1px #000; /* nice edge on WebKit/Chromium */
       }
+
+      /* Apply orange + outline to other darker text for readability */
+      h2, h3, .chip, .post a {
+        color: var(--orange);
+        text-shadow: var(--outline);
+        -webkit-text-stroke: 0.4px #000;
+      }
+
       .tagline {
         color: var(--muted);
         font-size: clamp(1.05rem, 2vw, 1.25rem);
         max-width: 60ch;
       }
+
       .quick-actions {
         display: flex;
         gap: 0.75rem;
@@ -99,6 +125,7 @@ const posts = (await getCollection('blog'))
         grid-template-columns: repeat(6, minmax(0, 1fr));
         gap: 0.75rem;
         margin: 2rem 0 0.5rem;
+        align-items: center; /* center items in each grid cell */
       }
       @media (max-width: 1024px) {
         .at-a-glance { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -109,11 +136,16 @@ const posts = (await getCollection('blog'))
       .chip {
         background: var(--card);
         border: 1px solid var(--border);
-        color: var(--text);
-        padding: 0.5rem 0.7rem;
+        padding: 0.5rem 0.9rem;
         border-radius: 999px;
         font-size: 0.95rem;
         text-align: center;
+
+        /* Fix: vertically center the text inside each chip */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.2;
       }
 
       .section {
@@ -148,6 +180,7 @@ const posts = (await getCollection('blog'))
         margin: 0;
         color: var(--muted);
       }
+
       .list {
         margin: 0.25rem 0 0;
         padding-left: 1.1rem;
@@ -169,7 +202,6 @@ const posts = (await getCollection('blog'))
       }
       .post a {
         font-weight: 600;
-        color: var(--text);
         text-decoration: none;
       }
       .post a:hover {
@@ -242,7 +274,7 @@ const posts = (await getCollection('blog'))
         </ul>
       </section>
 
-      {posts && posts.length > 0 && (
+      {posts.length > 0 && (
         <section class="section">
           <h2>Latest writing</h2>
           <div class="posts">
