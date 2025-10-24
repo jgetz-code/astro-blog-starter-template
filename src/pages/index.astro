@@ -29,9 +29,190 @@ try {
         margin: 0 auto;
         padding: 2rem 1rem 4rem;
       }
+
+      .hero {
+        display: grid;
+        gap: 1rem;
+        padding: 2rem 0 1rem;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        letter-spacing: 0.2px;
+        color: var(--orange);
+        text-shadow: var(--outline);
+        -webkit-text-stroke: 1px #000;
+      }
+
+      h2,
+      h3,
+      .chip,
+      .post a {
+        color: var(--orange);
+        text-shadow: var(--outline);
+        -webkit-text-stroke: 0.1px #000;
+      }
+
+      .tagline {
+        color: var(--muted);
+        font-size: clamp(1.05rem, 2vw, 1.25rem);
+        max-width: 60ch;
+      }
+
+      .quick-actions {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        margin-top: 0.5rem;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.6rem 0.9rem;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--card);
+        color: var(--text);
+        transition: border-color 150ms ease, background 150ms ease;
+        font-weight: 500;
+      }
+
+      .btn:hover {
+        background: var(--card-2);
+        border-color: var(--accent-2);
+        text-decoration: none;
+      }
+
+      .at-a-glance {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 0.75rem;
+        margin: 2rem 0 0.5rem;
+        align-items: center;
+      }
+
+      @media (max-width: 1024px) {
+        .at-a-glance {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 640px) {
+        .at-a-glance {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      .chip {
+        background: var(--card);
+        border: 1px solid var(--border);
+        padding: 0.5rem 0.9rem;
+        border-radius: 999px;
+        font-size: 0.95rem;
+        text-align: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.2;
+      }
+
+      .section {
+        margin-top: 2.75rem;
+      }
+
+      .section h2 {
+        font-size: 1.3rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      @media (max-width: 900px) {
+        .cards {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 600px) {
+        .cards {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1rem 1.1rem;
+      }
+
+      .card h3 {
+        margin: 0 0 0.4rem 0;
+        font-size: 1.05rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .list {
+        margin: 0.25rem 0 0;
+        padding-left: 1.1rem;
+        color: var(--muted);
+      }
+
+      .list li {
+        margin: 0.25rem 0;
+      }
+
+      .posts {
+        display: grid;
+        gap: 0.75rem;
+      }
+
+      .post {
+        display: grid;
+        gap: 0.2rem;
+        padding: 0.9rem 1rem;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--card);
+      }
+
+      .post a {
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .post a:hover {
+        color: var(--accent);
+        text-decoration: underline;
+      }
+
+      .post small {
+        color: var(--muted);
+      }
+
+      .cta {
+        margin-top: 3rem;
+        padding: 1.2rem 1.1rem;
+        border: 1px dashed var(--border);
+        border-radius: 12px;
+        background: linear-gradient(180deg, rgba(88,166,255,0.08), transparent 60%);
+      }
     </style>
   </head>
-  <body class="dark-theme">
+  <body>
     <Header />
     <main>
       <section class="hero">
