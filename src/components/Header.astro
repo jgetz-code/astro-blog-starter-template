@@ -46,8 +46,8 @@ import { SITE_TITLE } from '../consts';
 	header {
 		margin: 0;
 		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
+		background: #0b0f17;
+		border-bottom: 1px solid #22304a;
 	}
 	h2 {
 		margin: 0;
@@ -57,6 +57,10 @@ import { SITE_TITLE } from '../consts';
 	h2 a,
 	h2 a.active {
 		text-decoration: none;
+		color: #ffa657;
+		text-shadow: 0 1px 0 #000, 0 -1px 0 #000, 1px 0 0 #000, -1px 0 0 #000,
+		             1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+		-webkit-text-stroke: 0.4px #000;
 	}
 	nav {
 		display: flex;
@@ -65,17 +69,26 @@ import { SITE_TITLE } from '../consts';
 	}
 	nav a {
 		padding: 1em 0.5em;
-		color: var(--black);
+		color: #e6edf3;
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
 	}
 	nav a.active {
 		text-decoration: none;
-		border-bottom-color: var(--accent);
+		border-bottom-color: #58a6ff;
+	}
+	nav a:hover {
+		color: #58a6ff;
 	}
 	.social-links,
 	.social-links a {
 		display: flex;
+	}
+	.social-links a {
+		color: #e6edf3;
+	}
+	.social-links a:hover {
+		color: #58a6ff;
 	}
 	@media (max-width: 720px) {
 		.social-links {
